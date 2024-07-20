@@ -1,0 +1,78 @@
+<h1>Flexi Grid</h1>
+
+<button (click)="changeThemeClass()">Change Theme</button>
+<flexi-grid
+[data]="users()"
+[total]="total()"
+[dataBinding]="true"
+[pageable]="true"
+[filterable]="true"
+[sortable]="true"
+[draggable]="true"
+[showCaption]="true"
+captionTitle="User List"
+[resizable]="true"
+[showIndex]="true"
+[loading]="loading()"
+[themeClass]="themeClass()"
+indexWidth="10%"
+[captionTemplate]="captionTemplate"
+[showExportExcel]="true"
+width="95%"
+[exportExcelButtonClick]="method.bind(this)"
+[footerTemplate]="footerTemplate"
+(dataStateChange)="onDataStageChange($event)"
+>
+  <ng-template #captionTemplate>
+    <button>Add</button>
+    <button>Add</button>
+    <button>Add</button>
+    <button>Add</button>
+    <button>Add</button>
+  </ng-template>
+
+
+  <flexi-grid-column field="firstName" width="20%" title="First Name"></flexi-grid-column>
+  <flexi-grid-column field="lastName" width="20%" title="Last Name"></flexi-grid-column>
+ <flexi-grid-column
+   field="dateOfBirth"
+   title="Date Of Birth"
+   filterType="date"
+   width="20%"
+   format="dd.MM.yyyy"></flexi-grid-column>
+ <!-- <flexi-grid-column
+    field="salary"
+    title="Salary"
+    filterType="number"
+    format="c"
+    [fraction]="2"
+    width="30%"
+    symbol="₺"
+    ></flexi-grid-column> -->
+   <flexi-grid-column
+      field="salary"
+      title="Salary"
+      width="10%"
+      filterType="number"
+      [columnTemplate]="salaryColumnTemplate">
+      <ng-template #salaryColumnTemplate let-item="item">
+        <span>{{item.salary | trCurrency: '₺':true:2}}</span>
+      </ng-template>
+    </flexi-grid-column>
+
+  <flexi-grid-column width="10%" title="Operations" [columnTemplate]="operationsColumnTemplate">
+    <ng-template #operationsColumnTemplate let-item="item" let-index="index">
+      <button>Update</button>
+      <button>Delete</button>
+    </ng-template>
+  </flexi-grid-column>
+
+  <ng-template #footerTemplate>
+    <tr>
+      <th colspan="5">
+        Total: 5056465
+      </th>
+    </tr>
+  </ng-template>
+
+</flexi-grid>
