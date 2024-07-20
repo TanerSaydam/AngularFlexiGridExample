@@ -1,0 +1,1 @@
+GET https://localhost:7155/api/Users/GetAll?$count=true&$top=3&$skip=10&orderby=FirstName
